@@ -36,7 +36,7 @@ describe("UpdateUserAvatar", () => {
       fakeStorageProvider
     );
 
-    expect(
+    await expect(
       updateUserAvatar.execute({
         user_id: "non-existing-user",
         avatarFilename: "avatar.jpg",
@@ -48,7 +48,7 @@ describe("UpdateUserAvatar", () => {
     const fakeUsersRepository = new FakeUsersRepository();
     const fakeStorageProvider = new FakeStorageProvider();
 
-    const deleteFile = jest.spyOn(fakeStorageProvider, "deleteFile")
+    const deleteFile = jest.spyOn(fakeStorageProvider, "deleteFile");
 
     const updateUserAvatar = new UpdateUserAvatarService(
       fakeUsersRepository,
@@ -71,7 +71,7 @@ describe("UpdateUserAvatar", () => {
       avatarFilename: "avatar2.jpg",
     });
 
-    expect(deleteFile).toHaveBeenCalledWith("avatar.jpg")
+    expect(deleteFile).toHaveBeenCalledWith("avatar.jpg");
     expect(user.avatar).toBe("avatar2.jpg");
   });
 });
